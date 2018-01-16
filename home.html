@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Jquery-weui Min H5 Base Framework</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="./h5.css/base.min.css">
+    <!-- base.min.css = weui.min.css + jquery-weui.css -->
+    <link rel="stylesheet" href="./h5.css/home.css">
+</head>
+
+<body ontouchstart>
+
+    <div class="swiper-container">
+
+        <!-- swiper-wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide"><img src="./h5.images/demo/swiper-1.jpg" /></div>
+            <div class="swiper-slide"><img src="./h5.images/demo/swiper-2.jpg" /></div>
+            <div class="swiper-slide"><img src="./h5.images/demo/swiper-3.jpg" /></div>
+        </div>
+        <!-- swiper-pagination -->
+        <div class="swiper-pagination"></div>
+
+    </div>
+
+    <header class='demos-header'>
+        <h1 class="demos-title">对话框</h1>
+    </header>
+
+    <div class='demos-content-padded'>
+        <a href="javascript:;" id='show-alert' class="weui_btn weui_btn_primary">显示 Alert</a>
+        <a href="javascript:;" id='show-confirm' class="weui_btn weui_btn_primary">显示 Confirm</a>
+        <a href="javascript:;" id='show-prompt' class="weui_btn weui_btn_primary">显示 Prompt</a>
+        <a href="javascript:;" id='show-login' class="weui_btn weui_btn_primary">显示登录弹窗</a>
+        <a href="javascript:;" id='show-custom' class="weui_btn weui_btn_primary">显示自定义对话框</a>
+    </div>
+
+
+    <script src="./h5.js/base.min.js"></script>
+    <!-- base.min.js = jquery-2.1.4.js + fastclick.js + jquery-weui.js -->
+    <script src="./h5.js/swiper.js"></script>
+    <script>
+
+    /*
+    注意事项：
+    1、以下为官方部分演示代码，在所有方法中应用到on的方法时都使用 $(document).on的方法；
+    2、fastclick为移动端延迟相应速度解决方案；
+    3、基础字体为20px，即基于HTML的字体大小，在书写样式时以继承方式书写，尽量减少选择符方式，字体无需定义字体，移动端使用的是自带字体，安卓一般为黑体
+    4、该框架压缩需要手工压缩合并，以保证JS以及样式的良性运行；
+    5、该框架整合采用基于jQuery生态，jQuery2.0已经抛弃IE6、IE7、IE8，更注重于H5，这里可以实现更多的需求生态不使用Zepto。
+    */
+
+    $(".swiper-container").swiper({
+        loop: true,
+        autoplay: 3000
+    });
+
+      $(document).on("click", "#show-alert", function() {
+        $.alert("AlphaGo 就是天网的前身，人类要完蛋了！", "警告！");
+      });
+
+      $(document).on("click", "#show-confirm", function() {
+        $.confirm("您确定要删除文件<<苍井空全集>>吗?", "确认删除?", function() {
+          $.toast("文件已经删除!");
+        }, function() {
+          //取消操作
+        });
+      });
+
+      $(document).on("click", "#show-prompt", function() {
+        $.prompt({
+          text: "名字不能超过6个字符，不得出现不和谐文字",
+          title: "输入姓名",
+          onOK: function(text) {
+            $.alert("您的名字是:"+text, "角色设定成功");
+          },
+          onCancel: function() {
+            console.log("取消了");
+          },
+          input: 'Mr Noone'
+        });
+      });
+
+      $(document).on("click", "#show-custom", function() {
+        $.modal({
+          title: "Hello",
+          text: "我是自定义的modal",
+          buttons: [
+            { text: "支付宝", onClick: function(){ $.alert("你选择了支付宝"); } },
+            { text: "微信支付", onClick: function(){ $.alert("你选择了微信支付"); } },
+            { text: "取消", className: "default"},
+          ]
+        });
+      });
+
+      $(document).on('click', '#show-login', function() {
+        $.login({
+          title: '登录',
+          text: '请输入用户名和密码',
+          onOK: function (username, password) {
+            console.log(username, password);
+            $.toast('登录成功!');
+          },
+          onCancel: function () {
+            $.toast('取消登录!', 'cancel');
+          }
+        });
+      });
+
+    </script>
+
+</body>
+
+</html>
