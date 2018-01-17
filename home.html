@@ -1,12 +1,37 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Jquery-weui Min H5 Base Framework</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="description" content="">
+	<script>
+    var isMobile={Android:function(){return navigator.userAgent.match(/Android/i)?!0:!1},BlackBerry:function(){return navigator.userAgent.match(/BlackBerry/i)?!0:!1},iOS:function(){return navigator.userAgent.match(/iPhone|ipad|iPod/i)?!0:!1},Windows:function(){return navigator.userAgent.match(/IEMobile/i)?!0:!1},any:function(){return isMobile.Android()||isMobile.BlackBerry()||isMobile.iOS()||isMobile.Windows()}};
+    if(!isMobile.any()){
+        window.location.href="127.0.0.1";
+    }
+    (function (doc, win) {
+        var docEl = doc.documentElement,
+          isIOS = navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+          dpr = isIOS? Math.min(win.devicePixelRatio, 3) : 1,
+          dpr = window.top === window.self? dpr : 1,
+          resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+        docEl.dataset.dpr = dpr;
+        var recalc = function () {
+            var width = docEl.clientWidth;
+            if (width / dpr > 640) {
+                width = 640 * dpr;
+            }
+            docEl.dataset.width = width
+            docEl.dataset.percent = 100 * (width / 640);
+            docEl.style.fontSize = 100 * (width / 640) + 'px';
+          };
+        recalc();
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+    })(document, window);
+    </script>    
     <link rel="stylesheet" href="./h5.css/base.min.css">
     <!-- base.min.css = weui.min.css + jquery-weui.css -->
     <link rel="stylesheet" href="./h5.css/home.css">
@@ -52,7 +77,8 @@
     2、fastclick为移动端延迟相应速度解决方案；
     3、基础字体为20px，即基于HTML的字体大小，在书写样式时以继承方式书写，尽量减少选择符方式，字体无需定义字体，移动端使用的是自带字体，安卓一般为黑体
     4、该框架压缩需要手工压缩合并，以保证JS以及样式的良性运行；
-    5、该框架整合采用基于jQuery生态，jQuery2.0已经抛弃IE6、IE7、IE8，更注重于H5，这里可以实现更多的需求生态不使用Zepto。
+    5、该框架整合采用基于jQuery生态，jQuery2.0已经抛弃IE6、IE7、IE8，更注重于H5，这里可以实现更多的需求生态不使用Zepto；
+    6、该框架整合采用REM；
     */
 
     $(".swiper-container").swiper({
@@ -113,7 +139,5 @@
       });
 
     </script>
-
 </body>
-
 </html>
