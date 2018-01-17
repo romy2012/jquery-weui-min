@@ -9,5 +9,4 @@ jquery-weui min H5 Framework
     4、该框架压缩需要手工压缩合并，以保证JS以及样式的良性运行；
     5、该框架整合采用基于jQuery生态，jQuery2.0已经抛弃IE6、IE7、IE8，更注重于H5，这里可以实现更多的需求生态不使用Zepto；
     6、整合更新为REM
-
     */
